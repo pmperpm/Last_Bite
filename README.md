@@ -1,4 +1,4 @@
-# 🍱 Last Bite
+# Last Bite
 
 > **Connecting surplus food to people who need it — reducing waste, building communities.**
 
@@ -6,7 +6,7 @@ Last Bite is a web application that fights food waste by linking hotels and rest
 
 ---
 
-## 🎯 Background & Problem
+## Background & Problem
 
 | | |
 |---|---|
@@ -15,31 +15,13 @@ Last Bite is a web application that fights food waste by linking hotels and rest
 
 ---
 
-## 🏆 Objectives
+## Objectives
 
 - Connect surplus food from businesses to users via a real-time platform
 - Minimize food waste at the source
 - Provide cheap, healthy meals to those who need them
 
 ---
-
-## ⚙️ System Workflow
-
-```
-1. Business posts meal details and expiry time
-         │
-         ▼
-2. User browses, reserves, pays, and uploads payment slip
-         │
-         ▼
-3. Business confirms payment and prepares food
-         │
-         ▼
-4. User picks up food and clicks "Confirm Received"
-         │
-         ▼
-5. Business clicks "Finish" — booking complete
-```
 
 ### Booking Status Flow
 
@@ -51,7 +33,7 @@ Last Bite is a web application that fights food waste by linking hotels and rest
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer     | Technology                              |
 |-----------|-----------------------------------------|
@@ -65,7 +47,7 @@ Last Bite is a web application that fights food waste by linking hotels and rest
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 backend/
@@ -86,7 +68,7 @@ backend/
 
 ---
 
-## 🚀 Backend Setup
+## Setup
 
 ### 1. Create & activate a virtual environment
 ```bash
@@ -134,8 +116,3 @@ python manage.py runserver
 Server runs at: **http://127.0.0.1:8000**
 
 ---
-
-## 🗒️ Notes
-
-- All image uploads (meal photos, payment slips, profile pictures) are stored under `media/`
-- JWT access token expires in **2 hours**, refresh token in **7 days**
