@@ -58,14 +58,12 @@ class MealViewSet(viewsets.ModelViewSet):
     def publish(self, request, pk=None):
         """POST /api/v1/meals/<id>/publish/ — make a meal available."""
         meal = self.get_object()
-        meal.status = Meal.Status.AVAILABLE
-        meal.save(update_fields=["status"])
+        meal.mark_published()
         return Response({"status": "published"})
 
     @action(detail=True, methods=["post"])
     def cancel(self, request, pk=None):
         """POST /api/v1/meals/<id>/cancel/"""
         meal = self.get_object()
-        meal.status = Meal.Status.CANCELLED
-        meal.save(update_fields=["status"])
+        meal.mark_cancelled()
         return Response({"status": "cancelled"})

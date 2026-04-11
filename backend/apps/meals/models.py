@@ -88,3 +88,13 @@ class Meal(models.Model):
         if self.original_price > 0:
             return round((1 - self.discounted_price / self.original_price) * 100, 1)
         return 0
+
+    def mark_published(self):
+        """Business logic: publish a meal."""
+        self.status = self.Status.AVAILABLE
+        self.save(update_fields=["status"])
+
+    def mark_cancelled(self):
+        """Business logic: cancel a meal."""
+        self.status = self.Status.CANCELLED
+        self.save(update_fields=["status"])
