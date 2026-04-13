@@ -44,6 +44,7 @@ class MealDetailSerializer(serializers.ModelSerializer):
         many=True,
         write_only=True,
         source="allergy_tags",
+        required=False,
     )
 
     class Meta:

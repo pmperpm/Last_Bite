@@ -54,6 +54,13 @@ class MealViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(posted_by=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        print("REQUEST DATA:", request.data)
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            print("SERIALIZER ERRORS:", serializer.errors)
+        return super().create(request, *args, **kwargs)
+
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):
         """POST /api/v1/meals/<id>/publish/ — make a meal available."""
