@@ -93,3 +93,40 @@ From the `frontend` directory:
 npm run dev
 ```
 The frontend application will be accessible at `http://localhost:3000`.
+
+## Screenshots
+### Login and Registeration
+![Register](frontend/public/screenshots/register.png)
+![Login](frontend/public/screenshots/login.png)
+
+## Browse Meal
+![Browse meal](frontend/public/screenshots/browse_meal.png)
+
+## Create Meal
+![Create meal 1 ](frontend/public/screenshots/create_meal_1.png)
+![Create meal 2 ](frontend/public/screenshots/create_meal_2.png)
+![Create meal 3 ](frontend/public/screenshots/create_meal_3.png)
+
+## Meal Detail
+![Meal Detail 1 ](frontend/public/screenshots/meal_detail_1.png)
+![Meal Detail 2 ](frontend/public/screenshots/meal_detail_2.png)
+
+## Booking
+![My Booking](frontend/public/screenshots/user_booking.png)
+![Booking Complete](frontend/public/screenshots/booking_complete.png)
+
+## Restaurant Dashboard
+![Restaurant Dashboard](frontend/public/screenshots/restaurant_dashboard.png)
+
+## Restaurant Payment Slip Review
+![Slip Review](frontend/public/screenshots/payment_slip_review.png)
+
+## Student Payment History
+![Payment History](frontend/public/screenshots/payment_history.png)
+
+## Student Confirm Recieve Food
+![Confirm Recieve Food](frontend/public/screenshots/confirm_recieve_food.png)
+
+## Admin Panel
+![Admin Panel 1](frontend/public/screenshots/admin_panel_1.png)
+![Admin Panel 2](frontend/public/screenshots/admin_panel_2.png)
