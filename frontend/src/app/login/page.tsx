@@ -195,7 +195,7 @@ export default function LoginPage() {
               href="/register"
               style={{ color: "var(--primary)", fontWeight: 600, textDecoration: "none" }}
             >
-              Create one free →
+              Create one →
             </Link>
           </p>
         </div>

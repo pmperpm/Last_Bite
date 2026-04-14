@@ -43,24 +43,6 @@ export default function DashboardPage() {
 
   const stats = [
     {
-      label: "Active Meals",
-      value: meals?.count ?? 0,
-      color: "var(--primary)",
-      bg: "#FEF2F0",
-    },
-    {
-      label: "Pending Bookings",
-      value: pendingBookings.length,
-      color: "#D97706",
-      bg: "#FEF3C7",
-    },
-    {
-      label: "Slips to Review",
-      value: pendingPayments.length,
-      color: "#1E40AF",
-      bg: "#DBEAFE",
-    },
-    {
       label: "Total Revenue",
       value: `฿${totalRevenue.toFixed(0)}`,
       color: "#065F46",
@@ -109,72 +91,51 @@ export default function DashboardPage() {
       </div>
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 24px" }}>
-        {/* Stats grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: 16,
-            marginBottom: 32,
-          }}
-        >
+        {/* Revenue Banner */}
+        <div style={{ marginBottom: 32 }}>
           {stats.map((stat, i) => (
             <div
               key={i}
               style={{
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
+                borderLeft: `6px solid ${stat.color}`,
                 borderRadius: 16,
-                padding: "20px 22px",
+                padding: "20px 32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
                 animation: `fadeUp 0.4s ease both`,
                 animationDelay: `${i * 80}ms`,
+                boxShadow: "0 2px 10px rgba(0,0,0,0.02)"
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                <div
-                  style={{
-                    width: 40, height: 40, borderRadius: 10,
-                    background: stat.bg,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 20,
-                  }}
-                >
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <div style={{ 
+                  fontSize: 16, color: "var(--text-muted)", fontWeight: 700, 
+                  textTransform: "uppercase", letterSpacing: "0.05em" 
+                }}>
+                  {stat.label}
                 </div>
-                {stat.label === "Slips to Review" && pendingPayments.length > 0 && (
-                  <span
-                    style={{
-                      background: "var(--primary)", color: "white",
-                      borderRadius: "50%", width: 20, height: 20,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: 11, fontWeight: 700,
-                    }}
-                  >
-                    !
-                  </span>
-                )}
               </div>
               <div
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 30,
+                  fontSize: 36,
                   fontWeight: 900,
                   color: stat.color,
                   letterSpacing: "-0.02em",
                   lineHeight: 1,
-                  marginBottom: 4,
                 }}
               >
                 {stat.value}
-              </div>
-              <div style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>
-                {stat.label}
               </div>
             </div>
           ))}
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 24, alignItems: "start" }}>
-          {/* Left: Recent bookings needing action */}
+          {/* Recent bookings needing action */}
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <h2

@@ -205,7 +205,6 @@ export default function NewMealPage() {
                 </label>
                 <textarea
                   className="input"
-                  placeholder="Describe the meal — what's included, how it's prepared, any special notes…"
                   value={form.description}
                   onChange={(e) => set("description", e.target.value)}
                   rows={3}
