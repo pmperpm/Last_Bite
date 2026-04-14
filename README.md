@@ -1,118 +1,95 @@
-# Last Bite
+# Last Bite - Project Documentation
 
-> **Connecting surplus food to people who need it — reducing waste, building communities.**
+## Project Description
+Last Bite is a web application aimed at combating food waste. The platform connects hotels and restaurants with surplus food to college students and workers seeking affordable, nutritious meals. By providing real-time listings, seamless reservations, and straightforward pick-up processes, Last Bite turns perfectly good leftover meals into an affordable community resource.
 
-Last Bite is a web application that fights food waste by linking hotels and restaurants' leftovers to students and workers who need affordable meals. Users browse listings, reserve online, and pick up food themselves — building community support and sustainability in cities.
+## System Architecture Overview
+Layered Architecture.
+- **Presentation Layer (Frontend):** Next.js (App Router) serving responsive React components, communicating with the backend via Axios/React Query.
+- **Application Layer (API & Business Logic):** Django Rest Framework handling routing (`urls.py`), request validation and formatting (`serializers.py`), and core business logic (`views.py`).
+- **Data Access Layer (ORM):** Django Models serving as the definitive map to the PostgreSQL database, executing queries and ensuring data integrity (`models.py`).
+- **Database Layer:** PostgreSQL database storing structured relational data.
 
----
+## User Roles & Permissions
+1. **Student / Worker (Consumers):**
+   - Can browse available meals and filter by dietary preferences/price.
+   - Can reserve meals, view their active bookings, and upload payment slips.
+2. **Business Owner (Providers):**
+   - Can create, edit, and publish meal listings.
+   - Can view incoming bookings for their meals.
+   - Can verify or reject payment slips to mark meals ready for pickup.
+3. **Admin (System Administrators):**
+   - Has full access to the Admin Panel.
+   - Can manage users, monitor daily booking graph. 
 
-## Background & Problem
+## Technology Stack
+- **Frontend:** Next.js, React, TailwindCSS, React Query, Axios.
+- **Backend:** Python, Django, Django Rest Framework (DRF), SimpleJWT.
+- **Database:** PostgreSQL.
+- **Tooling:** Docker Compose, Pillow (for image processing).
 
-| | |
-|---|---|
-| **Problem** | Hotels and restaurants discard good leftover food daily, while low-income students and workers lack access to nutritious, affordable meals. |
-| **Why it matters** | Reduces food waste, feeds communities, and saves costs for both businesses and consumers. |
+## Installation & Setup Instructions
 
----
+### Environment Prerequisites
+- Node.js (v18+)
+- Python (3.10+)
+- PostgreSQL (or Docker/Docker Compose)
 
-## Objectives
+### Option A: Using Docker (Recommended)
+Docker is the easiest way to get the entire project (database and backend) running quickly.
 
-- Connect surplus food from businesses to users via a real-time platform
-- Minimize food waste at the source
-- Provide cheap, healthy meals to those who need them
-
----
-
-### Booking Status Flow
-
-```
-[PENDING] ──► [CONFIRMED] ──► [READY FOR PICKUP] ──► [COMPLETED]
-    │               │                                      ▲
-    └───────────────┴──────────── [CANCELLED] ─────────────┘
-```
-
----
-
-## Tech Stack
-
-| Layer     | Technology                              |
-|-----------|-----------------------------------------|
-| Frontend  | React.js *(in development)*             |
-| Backend   | Django 4.2 + Django REST Framework 3.15 |
-| Auth      | JWT via `djangorestframework-simplejwt` |
-| Database  | PostgreSQL                              |
-| CORS      | `django-cors-headers`                   |
-| Images    | Pillow                                  |
-| Config    | `python-decouple`                       |
-
----
-
-## Project Structure
-
-```
-backend/
-├── manage.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── lastbite/                  # Django project config
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-└── apps/
-    ├── users/                 # Custom user model, 3 roles, JWT auth
-    ├── meals/                 # Meal listings, allergy tags, nutrition info
-    ├── bookings/              # Booking lifecycle (5 status steps)
-    └── payments/              # Payment slip upload + verify / reject
-```
-
----
-
-## Setup
-
-### 1. Create & activate a virtual environment
+1. Ensure Docker and Docker Compose are installed and running.
+2. Build and start the containers from the project root:
 ```bash
-python -m venv venv
-source venv/bin/activate        # macOS / Linux
-venv\Scripts\activate           # Windows
+docker-compose up --build -d
 ```
-
-### 2. Install dependencies
+3. Create a superuser (admin account) inside the running backend container. Make sure you provide a valid email address (e.g., `admin@example.com`):
 ```bash
-pip install -r requirements.txt
+docker exec -it lastbite_backend python manage.py createsuperuser
 ```
+4. The backend will now be available at `http://localhost:8000`, and the frontend application will be running at `http://localhost:3000`.
 
-### 3. Configure environment variables
+### Option B: Manual Setup
+
+#### 1. Database Setup
+Ensure PostgreSQL is running and create the database:
 ```bash
-cp .env.example .env
-# Open .env and fill in your PostgreSQL credentials and SECRET_KEY
-```
-
-### 4. Start PostgreSQL and create the database
-```bash
-# macOS (Homebrew)
-brew services start postgresql@14
-
-# Create DB
 psql postgres -c "CREATE DATABASE lastbite_db;"
 ```
 
-### 5. Run migrations
+#### 2. Backend Setup
+Navigate to the backend folder and set up the environment:
 ```bash
-python manage.py makemigrations users meals bookings payments
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env  # Update the database credentials in .env
+python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser  # Create an admin account using an email
 ```
 
-### 6. Create a superuser (Admin)
+#### 3. Frontend Setup
+Navigate to the frontend folder:
 ```bash
-python manage.py createsuperuser
+cd frontend
+npm install
+# Or yarn install / pnpm install
 ```
 
-### 7. Start the development server
+## How to Run the System
+
+### Running the Backend (If using Manual Setup)
+From the `backend` directory with your virtual environment activated:
 ```bash
 python manage.py runserver
 ```
+The backend API will run at `http://localhost:8000`.
 
-Server runs at: **http://127.0.0.1:8000**
-
----
+### Running the Frontend
+From the `frontend` directory:
+```bash
+npm run dev
+```
+The frontend application will be accessible at `http://localhost:3000`.
