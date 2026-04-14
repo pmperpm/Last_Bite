@@ -6,6 +6,7 @@ from .filters import MealFilter
 from .models import AllergyTag, Meal
 from .permissions import IsBusinessOwner, IsOwnerOrAdmin
 from .serializers import AllergyTagSerializer, MealDetailSerializer, MealListSerializer
+from .services import publish_meal, cancel_meal
 
 
 class AllergyTagViewSet(viewsets.ReadOnlyModelViewSet):
@@ -65,12 +66,12 @@ class MealViewSet(viewsets.ModelViewSet):
     def publish(self, request, pk=None):
         """POST /api/v1/meals/<id>/publish/ — make a meal available."""
         meal = self.get_object()
-        meal.mark_published()
+        publish_meal(meal)
         return Response({"status": "published"})
 
     @action(detail=True, methods=["post"])
     def cancel(self, request, pk=None):
         """POST /api/v1/meals/<id>/cancel/"""
         meal = self.get_object()
-        meal.mark_cancelled()
+        cancel_meal(meal)
         return Response({"status": "cancelled"})

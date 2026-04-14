@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from apps.meals.permissions import IsBusinessOwner, IsStudentWorker
 from .models import Payment
 from .serializers import PaymentSerializer, PaymentUploadSerializer
+from .services import verify_payment, reject_payment
 
 
 class PaymentViewSet(
@@ -61,7 +62,7 @@ class PaymentViewSet(
         payment = self.get_object()
 
         try:
-            payment.verify(user=request.user)
+            verify_payment(payment, user=request.user)
             return Response({"status": "verified"})
         except ValueError as e:
             return Response(
@@ -74,9 +75,9 @@ class PaymentViewSet(
         """Business owner rejects the payment slip."""
         payment = self.get_object()
         reason = request.data.get("reason", "")
-        
+
         try:
-            payment.reject(user=request.user, reason=reason)
+            reject_payment(payment, user=request.user, reason=reason)
             return Response({"status": "rejected"})
         except ValueError as e:
             return Response(

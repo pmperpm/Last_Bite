@@ -8,6 +8,7 @@ from django.db.models import F
 from apps.meals.permissions import IsBusinessOwner, IsStudentWorker
 from .models import Booking
 from .serializers import BookingCreateSerializer, BookingSerializer
+from .services import confirm_received, confirm_payment, mark_ready, finish, cancel
 from rest_framework import serializers as drf_serializers
 
 
@@ -71,7 +72,7 @@ class BookingViewSet(
             )
             
         try:
-            booking.confirm_received()
+            confirm_received(booking)
             return Response({"status": "completed"})
         except ValueError as e:
             return Response(
@@ -90,7 +91,7 @@ class BookingViewSet(
         booking = self.get_object()
 
         try:
-            booking.confirm_payment()
+            confirm_payment(booking)
             return Response({"status": "confirmed"})
         except ValueError as e:
             return Response(
@@ -105,7 +106,7 @@ class BookingViewSet(
         booking = self.get_object()
 
         try:
-            booking.mark_ready()
+            mark_ready(booking)
             return Response({"status": "ready_for_pickup"})
         except ValueError as e:
             return Response(
@@ -120,7 +121,7 @@ class BookingViewSet(
         booking = self.get_object()
 
         try:
-            booking.finish()
+            finish(booking)
             return Response({"status": "finished"})
         except ValueError as e:
             return Response(
@@ -135,7 +136,7 @@ class BookingViewSet(
         reason = request.data.get("reason", "")
         
         try:
-            booking.cancel(reason=reason)
+            cancel(booking, reason=reason)
             return Response({"status": "cancelled"})
         except ValueError as e:
             return Response(

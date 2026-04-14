@@ -61,28 +61,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment #{self.pk} — Booking #{self.booking_id} [{self.status}]"
-
-    def verify(self, user):
-        """Business logic to verify a payment slip."""
-        if self.status != self.Status.UPLOADED:
-            raise ValueError("Payment is not in uploaded state.")
-
-        self.status = self.Status.VERIFIED
-        self.verified_by = user
-        self.verified_at = timezone.now()
-        self.save(update_fields=["status", "verified_by", "verified_at"])
-
-        # Trigger booking confirmation automatically
-        booking = self.booking
-        booking.confirm_payment()
-
-    def reject(self, user, reason=""):
-        """Business logic to reject a payment slip."""
-        if self.status != self.Status.UPLOADED:
-            raise ValueError("Payment is not in uploaded state.")
-
-        self.status = self.Status.REJECTED
-        self.rejection_reason = reason
-        self.verified_by = user
-        self.verified_at = timezone.now()
-        self.save(update_fields=["status", "rejection_reason", "verified_by", "verified_at"])
