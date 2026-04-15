@@ -14,20 +14,7 @@ class PaymentViewSet(
     mixins.RetrieveModelMixin,
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
-):
-    """
-    Payment slip management.
-
-    Student/Worker:
-      POST   /api/v1/payments/              — upload slip
-      GET    /api/v1/payments/              — list own payments
-      GET    /api/v1/payments/<id>/         — retrieve payment
-
-    Business Owner:
-      GET    /api/v1/payments/              — list payments for their meals
-      POST   /api/v1/payments/<id>/verify/  — verify slip
-      POST   /api/v1/payments/<id>/reject/  — reject slip
-    """
+):  
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -52,9 +39,7 @@ class PaymentViewSet(
             return qs.filter(booking__meal__posted_by=user)
         return qs.filter(user=user)
 
-    # ----------------------------------------------------------------
     # Business Owner actions
-    # ----------------------------------------------------------------
 
     @action(detail=True, methods=["post"])
     def verify(self, request, pk=None):

@@ -10,7 +10,6 @@ from .services import publish_meal, cancel_meal
 
 
 class AllergyTagViewSet(viewsets.ReadOnlyModelViewSet):
-    """GET /api/v1/meals/allergy-tags/ — public list of allergy tags."""
     queryset = AllergyTag.objects.all()
     serializer_class = AllergyTagSerializer
     permission_classes = [permissions.AllowAny]
@@ -64,14 +63,12 @@ class MealViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):
-        """POST /api/v1/meals/<id>/publish/ — make a meal available."""
         meal = self.get_object()
         publish_meal(meal)
         return Response({"status": "published"})
 
     @action(detail=True, methods=["post"])
     def cancel(self, request, pk=None):
-        """POST /api/v1/meals/<id>/cancel/"""
         meal = self.get_object()
         cancel_meal(meal)
         return Response({"status": "cancelled"})

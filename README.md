@@ -130,3 +130,7 @@ The frontend application will be accessible at `http://localhost:3000`.
 ## Admin Panel
 ![Admin Panel 1](frontend/public/screenshots/admin_panel_1.png)
 ![Admin Panel 2](frontend/public/screenshots/admin_panel_2.png)
+
+## Code Charta
+![Code Charta 1](frontend/public/screenshots/code_charta_1.png)
+![Code Charta 2](frontend/public/screenshots/code_charta_2.png)

@@ -60,4 +60,4 @@ class Payment(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"Payment #{self.pk} — Booking #{self.booking_id} [{self.status}]"
+        return f"Payment #{self.pk} : Booking #{self.booking_id} [{self.status}]"

@@ -6,18 +6,14 @@ from pathlib import Path
 from decouple import config
 from datetime import timedelta
 
-# -------------------------------------------------------------------
 # Base
-# -------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY", default="change-me-in-production")
 DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost").split(",")
 
-# -------------------------------------------------------------------
 # Applications
-# -------------------------------------------------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -37,9 +33,7 @@ INSTALLED_APPS = [
     "apps.payments",
 ]
 
-# -------------------------------------------------------------------
 # Middleware
-# -------------------------------------------------------------------
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -71,9 +65,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "lastbite.wsgi.application"
 
-# -------------------------------------------------------------------
-# Database — PostgreSQL
-# -------------------------------------------------------------------
+# Database: PostgreSQL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -85,14 +77,10 @@ DATABASES = {
     }
 }
 
-# -------------------------------------------------------------------
 # Custom user model
-# -------------------------------------------------------------------
 AUTH_USER_MODEL = "users.User"
 
-# -------------------------------------------------------------------
 # Password validation
-# -------------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -100,17 +88,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# -------------------------------------------------------------------
 # Internationalisation
-# -------------------------------------------------------------------
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Bangkok"
 USE_I18N = True
 USE_TZ = True
 
-# -------------------------------------------------------------------
 # Static & media files
-# -------------------------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -119,9 +103,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# -------------------------------------------------------------------
 # Django REST Framework
-# -------------------------------------------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -138,9 +120,7 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 20,
 }
 
-# -------------------------------------------------------------------
 # JWT
-# -------------------------------------------------------------------
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
@@ -148,9 +128,7 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# -------------------------------------------------------------------
 # CORS
-# -------------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = config(
     "CORS_ALLOWED_ORIGINS",
     default="http://localhost:3000,http://127.0.0.1:3000",

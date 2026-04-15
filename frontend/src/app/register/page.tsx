@@ -130,12 +130,12 @@ function RegisterForm() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
               <div>
                 <label className="section-label" style={{ display: "block", marginBottom: 6 }}>First Name</label>
-                <input className="input" placeholder="Jane" value={form.first_name} onChange={(e) => set("first_name", e.target.value)} required />
+                <input className="input" placeholder="First Name" value={form.first_name} onChange={(e) => set("first_name", e.target.value)} required />
                 {fieldErrors.first_name && <div style={{ fontSize: 11, color: "var(--primary)", marginTop: 4 }}>{fieldErrors.first_name[0]}</div>}
               </div>
               <div>
                 <label className="section-label" style={{ display: "block", marginBottom: 6 }}>Last Name</label>
-                <input className="input" placeholder="Doe" value={form.last_name} onChange={(e) => set("last_name", e.target.value)} required />
+                <input className="input" placeholder="Last Name" value={form.last_name} onChange={(e) => set("last_name", e.target.value)} required />
                 {fieldErrors.last_name && <div style={{ fontSize: 11, color: "var(--primary)", marginTop: 4 }}>{fieldErrors.last_name[0]}</div>}
               </div>
             </div>
@@ -150,7 +150,7 @@ function RegisterForm() {
 
             <div style={{ marginBottom: 14 }}>
               <label className="section-label" style={{ display: "block", marginBottom: 6 }}>Email</label>
-              <input className="input" type="email" placeholder="you@example.com" value={form.email} onChange={(e) => set("email", e.target.value)} required />
+              <input className="input" type="email" placeholder="email@example.com" value={form.email} onChange={(e) => set("email", e.target.value)} required />
               {fieldErrors.email && <div style={{ fontSize: 11, color: "var(--primary)", marginTop: 4 }}>{fieldErrors.email[0]}</div>}
             </div>
 

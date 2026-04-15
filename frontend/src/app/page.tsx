@@ -294,7 +294,7 @@ export default function MealsPage() {
               No meals found
             </h3>
             <p style={{ fontSize: 14 }}>
-              Try adjusting your filters or check back soon — restaurants post new meals daily.
+              Try adjusting your filters or check back soon.
             </p>
           </div>
         ) : (

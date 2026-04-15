@@ -365,7 +365,7 @@ export default function NewMealPage() {
               Nutrition Info
             </h2>
             <p style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 14 }}>
-              Optional — helps customers make informed choices.
+              Optional
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
               {[

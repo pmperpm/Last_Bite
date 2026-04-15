@@ -18,23 +18,6 @@ class BookingViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
-    """
-    Booking lifecycle endpoints.
-
-    Student/Worker:
-      POST   /api/v1/bookings/          — create booking
-      GET    /api/v1/bookings/          — list own bookings
-      GET    /api/v1/bookings/<id>/     — retrieve booking
-      POST   /api/v1/bookings/<id>/confirm_received/  — mark received
-
-    Business Owner:
-      GET    /api/v1/bookings/          — list bookings for their meals
-      POST   /api/v1/bookings/<id>/confirm_payment/   — confirm payment
-      POST   /api/v1/bookings/<id>/mark_ready/        — mark ready for pickup
-      POST   /api/v1/bookings/<id>/finish/            — mark finished
-      POST   /api/v1/bookings/<id>/cancel/            — cancel booking
-    """
-
     def get_serializer_class(self):
         if self.action == "create":
             return BookingCreateSerializer
@@ -56,9 +39,7 @@ class BookingViewSet(
         # student/worker sees only their own
         return qs.filter(user=user)
 
-    # ----------------------------------------------------------------
     # Student/Worker actions
-    # ----------------------------------------------------------------
 
     @action(detail=True, methods=["post"], url_path="confirm_received")
     def confirm_received(self, request, pk=None):
@@ -80,9 +61,7 @@ class BookingViewSet(
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    # ----------------------------------------------------------------
     # Business Owner actions
-    # ----------------------------------------------------------------
 
     @action(detail=True, methods=["post"], url_path="confirm_payment",
             permission_classes=[permissions.IsAuthenticated, IsBusinessOwner])

@@ -268,7 +268,7 @@ export default function AdminPage() {
                   marginBottom: 2,
                 }}
               >
-                Bookings — Last 14 Days
+                Bookings: Last 14 Days
               </h2>
               <p style={{ fontSize: 12, color: "var(--text-muted)" }}>
                 Daily booking volume across all meals
